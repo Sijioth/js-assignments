@@ -34,7 +34,30 @@
  *
  */
 function parseBankAccount(bankAccount) {
-    throw new Error('Not implemented');
+    let account = 0;
+    const nums = {
+        " _ | ||_|": 0,
+        "     |  |": 1,
+        " _  _||_ ": 2,
+        " _  _| _|": 3,
+        "   |_|  |": 4,
+        " _ |_  _|": 5,
+        " _ |_ |_|": 6,
+        " _   |  |": 7,
+        " _ |_||_|": 8,
+        " _ |_| _|": 9
+    };
+
+    let numToString = bankAccount.split("\n");
+
+    for (let i = 0; i < numToString[0].length; i = i + 3) {
+        let n = numToString[0].substring(i, i + 3) 
+              + numToString[1].substring(i, i + 3) 
+              + numToString[2].substring(i, i + 3);
+        let num = nums[n];
+        account = account * 10 + num;
+    }
+    return account;
 }
 
 
