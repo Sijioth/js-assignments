@@ -119,20 +119,8 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    // console.log('==================');
-    let over = false;
-    for (let prop in rect1) {
-        for (let prop in rect2) {
-            // console.log(rect1[prop]);
-            // console.log(rect2[prop]);
-
-            // console.log(rect1[prop] < rect2[prop]);
-            if (rect1[prop] < rect2[prop]) over = true;
-            // return rect1.prop < rect2.prop;
-        }
-    }
-    // return over;
-    throw new Error('Not implemented');
+    return (rect2.top < rect1.left + rect1.width 
+         && rect2.left < rect1.top + rect1.height);
 }
 
 
@@ -368,28 +356,47 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    let s = (endDate - startDate);
-    // console.log(s);
-//    function pad(n, z) {
-//       z = z || 2;
-//       return ('00' + n).slice(-z);
-//     }
+//     let s = (endDate - startDate);
+//     // console.log(s);
+// //    function pad(n, z) {
+// //       z = z || 2;
+// //       return ('00' + n).slice(-z);
+// //     }
   
-    let ms = s % 1000;
-    // console.log(ms);    
-    s = (s - ms) / 1000;
-    let secs = s % 60;
-    // console.log(secs);
-    s = (s - secs) / 60;
-    let mins = s % 60;
-    // console.log(mins);
-    let hrs = (s - mins) / 60;
-    // console.log(hrs);
+//     let ms = s % 1000;
+//     // console.log(ms);    
+//     s = (s - ms) / 1000;
+//     let secs = s % 60;
+//     // console.log(secs);
+//     s = (s - secs) / 60;
+//     let mins = s % 60;
+//     // console.log(mins);
+//     let hrs = (s - mins) / 60;
+//     // console.log(hrs);
 
-    if (secs > 0 && secs < 45) return 'a few seconds ago';
-    if (secs > 45 && secs < 90) return 'a minute ago';
-
-    throw new Error('Not implemented');
+//     if (secs > 0 && secs < 45) return 'a few seconds ago';
+//     if (secs > 45 && secs < 90) return 'a minute ago';
+    const difference = (endDate.getTime() - startDate.getTime()) / 1000;
+    return difference >= 0 && difference <= 45 ? 'a few seconds ago' : 
+            difference > 45 && difference <= 90 ? 'a minute ago' : 
+            difference > 90 && difference <= 120 ? '2 minutes ago' : 
+            difference > 120 && difference <= 360 ? '5 minutes ago' : 
+            difference > 90 && difference <= 2700 ? '45 minutes ago' :
+            difference > 2700 && difference <= 5400 ? 'an hour ago' :
+            difference > 5400 && difference <= 7200 ? '2 hours ago' :
+            difference > 7200 && difference <= 16200 ? '4 hours ago' :
+            difference > 16200 && difference <= 18000 ? '5 hours ago' :
+            difference > 18000 && difference <= 79200 ? '22 hours ago' :
+            difference > 79200 && difference <= 129600 ? 'a day ago' :
+            difference > 129600 && difference <= 172800 ? '2 days ago' :
+            difference > 172800 && difference <= 388800 ? '4 days ago' :
+            difference > 388800 && difference <= 2160000 ? '25 days ago' :
+            difference > 2160000 && difference <= 3888000 ? 'a month ago' :
+            difference > 2628000 && difference <= 5256000 ? '2 months ago' :     
+            difference > 5256000 && difference <= 12092400 ? '5 months ago' :
+            difference > 12092400 && difference <= 29721600 ? '11 months ago' :
+            difference > 2.981e+7 && difference <= 4.709e+7 ? 'a year ago' :
+            difference > 4.709e+7 && difference <= 477270000.001 ? '15 years ago' :  null;
 }
 
 
@@ -435,7 +442,7 @@ function getCommonDirectoryPath(pathes) {
 
     // var A= pathes.concat().sort(), 
     // a1= A[0], a2= A[A.length-1], L= a1.length, i= 0;
-    // console.log(pathes.concat().sort());
+    // // console.log(pathes.concat().sort());
     // while(i<L && a1.charAt(i)=== a2.charAt(i)) i++;
     // return a1.substring(0, i);
     throw new Error('Not implemented');
