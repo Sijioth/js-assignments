@@ -338,7 +338,8 @@ function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 function sortDigitNamesByNumericOrder(arr) {
-   throw new Error('Not implemented');
+   const nums = 'zero one two three four five six seven eight nine';
+   return arr.sort((a, b) => nums.indexOf(a) - nums.indexOf(b));
 }
 
 /** 
@@ -432,7 +433,16 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  */
 function sortCitiesArray(arr) {
-   // return arr.sort((a, b) => (a.country > b.country) ? (a.city > b.city) ? 1 : 0 : 0)// ((b.country > a.country) ? -1 : 0) );
+   return arr.sort((a, b) => {
+      if (a.country > b.country) return 1;
+      if (a.country < b.country) return -1;
+      if (a.city > b.city) return 1;
+      // if (b.city < a.city) return -1;
+      // if (a.city == b.city) return 0;
+      }
+   )
+   // console.log(arr.sort((a, b) => (a.country > b.country) ? (a.city > b.city) : (a.city < b.city)))
+   // return arr.sort((a, b) => (a.country > b.country) ? (a.city > b.city) : (a.city < b.city));// (b.country > a.country) ? 1 : 0 : 0);
    throw new Error('Not implemented');
 }
 
@@ -455,20 +465,11 @@ function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]   
  */
 function getIdentityMatrix(n) {
-   let arr = new Array(3).fill(Array(3).fill(1));
-   // if (n === 1) return [[1]];
-   // console.log(arr[0][0]);
-   arr[0][0] = 1;
-   arr[1][0] = 2;
-   arr[2][0] = 3;
-   console.log(arr);
-   // if(n > 1) console.log([[n]].map((x, i) => [[x[i]]] = 1));
-   // return [[n]].map((x, i) => [[x[i]]] = 1);
-   // console.log(new Array(3).fill(new Array(3).fill(0)));
-   // if(n === 1) return [[1]];
-   // return new Array(n).fill(new Array(n).fill(1));//.map((x, i) => x[i[i]] = 1);
-   // return [[n].fill(0)].map((x, i) => x[i[i]] = 1);
-   throw new Error('Not implemented');
+   return Array(n).fill(0).map(function (el, i) {
+      return Array(n).fill(0).map(function (el, j) {
+         return 1 - Math.min(Math.abs(i - j), 1);
+      });
+   });
 }
 
 /**
@@ -534,12 +535,25 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-   console.log(array);
-   console.log(keySelector.toString());
-   console.log(keySelector(array));
+   let keys = array.map(keySelector);
+   let values = array.map(valueSelector);
+   let map = new Map();
+   keys.filter((e, i) => {
+      if (!map.has(e)) {
+         map.set(e, [values[i]]);
+      } else {
+         let value = map.get(e);
+         value.push(values[i]);
+         map.set(e, value);
+      }
+   });
+   return map;
+   // console.log(array);
+   // console.log(keySelector.toString());
+   // console.log(keySelector(array));
 
-   console.log(valueSelector.toString());
-   console.log(valueSelector(array));
+   // console.log(valueSelector.toString());
+   // console.log(valueSelector(array));
 
    // return {keySelector(array): [valueSelector(array)]};
    throw new Error('Not implemented');
@@ -575,8 +589,7 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-   console.log(indexes.map(() => indexes.splice(0,2)).filter(a => a));
-    throw new Error('Not implemented');
+   return indexes.reduce((acc, el) => acc[el], arr);
 }
 
 
