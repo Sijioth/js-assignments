@@ -31,9 +31,7 @@
  * @return {RegExp}
  */
 function getRegexForGuid() {
-   // return /^(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}$/gi;
-   // return /^\{?[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}‌​\}?$/i;
-   throw new Error('Not implemented');
+   return /^{([0-9a-fA-F]){8}(-([0-9a-fA-F]){4}){3}-([0-9a-fA-F]){12}}$/;
 }
 
 
@@ -118,10 +116,7 @@ function getRegexForSSN() {
  *   'Pa55'.match(validator) => false
  */
 function getPasswordValidator(minLength) {
-   // return new RegExp('(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{' + minLength + '}'); //^_\W
-   // return /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,20}/;
-   // return /^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d).*$/;
-   throw new Error('Not implemented');
+   return new RegExp(`^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9]{${minLength},}$`);
 }
 
 
