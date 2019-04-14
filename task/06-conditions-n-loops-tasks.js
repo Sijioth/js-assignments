@@ -356,26 +356,6 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-//     let s = (endDate - startDate);
-//     // console.log(s);
-// //    function pad(n, z) {
-// //       z = z || 2;
-// //       return ('00' + n).slice(-z);
-// //     }
-  
-//     let ms = s % 1000;
-//     // console.log(ms);    
-//     s = (s - ms) / 1000;
-//     let secs = s % 60;
-//     // console.log(secs);
-//     s = (s - secs) / 60;
-//     let mins = s % 60;
-//     // console.log(mins);
-//     let hrs = (s - mins) / 60;
-//     // console.log(hrs);
-
-//     if (secs > 0 && secs < 45) return 'a few seconds ago';
-//     if (secs > 45 && secs < 90) return 'a minute ago';
     const difference = (endDate.getTime() - startDate.getTime()) / 1000;
     return difference >= 0 && difference <= 45 ? 'a few seconds ago' : 
             difference > 45 && difference <= 90 ? 'a minute ago' : 
@@ -437,15 +417,13 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    // console.log(pathes.join(' ').match(/^(\w*)\w*(?: \1\w*)*$/));
-    // return pathes.join(' ').match(/^(\w*)\w*(?: \1\w*)*$/);
+    let common = "";
+    let split = pathes.map(v => v.split("/"));
 
-    // var A= pathes.concat().sort(), 
-    // a1= A[0], a2= A[A.length-1], L= a1.length, i= 0;
-    // // console.log(pathes.concat().sort());
-    // while(i<L && a1.charAt(i)=== a2.charAt(i)) i++;
-    // return a1.substring(0, i);
-    throw new Error('Not implemented');
+    for (let i = 0; i < split[0].length; i++) {
+      split.every(v => v[i] === split[0][i]) ? common += split[0][i] + "/" : null;
+    }
+    return common;
 }
 
 
